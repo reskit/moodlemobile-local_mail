@@ -1,0 +1,40 @@
+<ion-view>
+    <ion-nav-title><mm-format-text watch="true">{{title}}</mm-format-text></ion-nav-title>
+    <ion-content mm-state-class>
+        <ion-refresher pulling-text="{{ 'mm.core.pulltorefresh' | translate }}" ng-if="indexLoaded" on-refresh="refreshIndex()">
+        </ion-refresher>
+        <mm-loading hide-until="indexLoaded" loading-padding-top="loadingPaddingTop">
+            <div class="list mma-local-mail-index">
+                <a ng-repeat="message in messages track by message.id" class="item item-avatar" ng-click="goToMessage(message)"
+                   ng-class="{'mma-local-mail-unread': message.unread, 'mma-local-mail-current': message.id == current}">
+                    <img ng-src="{{ message.sender.pictureurl }}"
+                        alt="{{ 'mm.core.pictureof' | translate:{$a: message.sender.fullname} }}"
+                        role="presentation" mm-external-content />
+                    <span class="item-note">{{ message.time | mmDateDayOrTime }}</span>
+                    <h2>
+                        <mm-format-text>{{message.subject}}</mm-format-text>
+                    </h2>
+                    <p class="mma-local-mail-recipients" ng-if="message.sender.id == userid && message.recipients.length > 0">
+                        {{ 'mma.local_mail.to' | translate}}:
+                        <span ng-repeat="recipient in message.recipients">{{recipient.fullname}}</span>
+                    </p>
+                    <p class="mma-local-mail-sender" ng-if="message.sender.id != userid">
+                        {{ 'mma.local_mail.from' | translate}}:
+                        {{message.sender.fullname}}
+                    </p>
+                    <p class="mma-local-mail-labels">
+                        <i class="icon ion-android-star mma-local-mail-star" ng-if="message.starred && type != 'starred'"></i>
+                        <span class="mma-local-mail-label mma-local-mail-label-draft" ng-if="message.draft && type != 'drafts'">{{ 'mma.local_mail.draft' | translate }}</span>
+                        <span class="mma-local-mail-label" ng-if="type != 'course'">{{ message.course.shortname }}</span>
+                        <span ng-repeat="label in message.labels" ng-if="type != 'label' || id != label.id"
+                              class="mma-local-mail-label mma-local-mail-label-{{ label.color }}">
+                            {{ label.name }}
+                        </span>
+                    </p>
+                </a>
+            </div>
+            <ion-infinite-scroll on-infinite="loadMore()" ng-if="moreAvailable">
+            </ion-infinite-scroll>
+        </mm-loading>
+    </ion-content>
+</ion-view>

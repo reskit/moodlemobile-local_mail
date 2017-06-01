@@ -1,0 +1,63 @@
+<ion-view>
+    <ion-nav-title>{{title}}</ion-nav-title>
+    <ion-nav-buttons side="secondary">
+        <button class="button button-icon ion-email" ng-click="markAsUnread()" ng-show="!message.draft && !message.unread" aria-label="{{ 'mm.user.viewprofile' | translate }}"></button>
+    </ion-nav-buttons>
+    <ion-content mm-state-class padding="true">
+        <ion-refresher pulling-text="{{ 'mm.core.pulltorefresh' | translate }}" ng-if="messageLoaded" on-refresh="refreshMessage()">
+        </ion-refresher>
+        <mm-loading hide-until="message" loading-padding-top="loadingPaddingTop">
+            <h1 class="mma-local-mail-subject">
+                <mm-format-text>{{message.subject}}</mm-format-text>
+            </h1>
+            <p class="mma-local-mail-labels">
+                <i class="icon ion-android-star mma-local-mail-star" ng-if="message.starred && type != 'starred'"></i>
+                <span class="mma-local-mail-label mma-local-mail-label-draft" ng-if="message.draft">{{ 'mma.local_mail.draft' | translate }}</span>
+                <span class="mmalocal_mail-label" ng-if="type != 'course'">{{ message.course.shortname }}</span>
+                <span ng-repeat="label in message.labels" ng-if="type != 'label' || id != label.id"
+                    class="mma-local-mail-label mma-local-mail-label-{{ label.color }}">
+                    {{ label.name }}
+                </span>
+            </p>
+            <div class="list card">
+                <div class="item item-avatar mma-local-mail-header">
+                    <img ng-src="{{ message.sender.pictureurl }}"
+                        alt="{{ 'mm.core.pictureof' | translate:{$a: message.sender.fullname} }}"
+                        role="presentation" mm-external-content />
+                    <h2>{{message.sender.fullname}}</h2>
+                    <p class="mma-local-mail-date">{{ message.time * 1000 | mmFormatDate:"dfmediumdate" }}</p>
+                    <p class="mma-local-mail-recipients" ng-if="recipients('to').length > 0">
+                        {{ 'mma.local_mail.to' | translate}}:
+                        <span ng-repeat="recipient in recipients('to')">{{recipient.fullname}}</span>
+                    </p>
+                    <p class="mma-local-mail-recipients" ng-if="recipients('cc').length > 0">
+                        {{ 'mma.local_mail.cc' | translate}}:
+                        <span ng-repeat="recipient in recipients('cc')">{{recipient.fullname}}</span>
+                    </p>
+                    <p class="mma-local-mail-recipients" ng-if="recipients('bcc').length > 0">
+                        {{ 'mma.local_mail.bcc' | translate}}:
+                        <span ng-repeat="recipient in recipients('bcc')">{{recipient.fullname}}</span>
+                    </p>
+                </div>
+                <div class="item item-body">
+                    <mm-format-text class="mma-local-mail-content mm-content-with-float" watch="true" component="mmaLocalMailMessage" component-id="{{message.id}}">{{ message.content }}</mm-format-text>
+                    <mm-file ng-repeat="attachment in message.attachments" file="attachment" component="mmaLocalMailMessage" component-id="{{message.id}}"></mm-file>
+                </div>
+            </div>
+
+            <div class="list card" ng-repeat="reference in message.references">
+                <div class="item item-avatar">
+                    <img ng-src="{{ reference.sender.pictureurl }}"
+                        alt="{{ 'mm.core.pictureof' | translate:{$a: reference.sender.fullname} }}"
+                        role="presentation" mm-external-content />
+                    <h2>{{reference.sender.fullname}}</h2>
+                    <p class="mma-local-mail-date">{{ reference.time * 1000 | mmFormatDate:"dfmediumdate" }}</p>
+                </div>
+                <div class="item item-body">
+                    <mm-format-text class="mma-local-mail-content mm-content-with-float" watch="true" component="mmaLocalMailMessage" component-id="{{reference.id}}">{{ reference.content }}</mm-format-text>
+                    <mm-file class="mma-local-mail-attachment" ng-repeat="attachment in reference.attachments" file="attachment" component="mmaLocalMailMessage" component-id="{{reference.id}}"></mm-file>
+                </div>
+            </div>
+        </mm-loading>
+    </ion-content>
+</ion-view>

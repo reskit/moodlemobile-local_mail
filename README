@@ -1,0 +1,11 @@
+Mail Addon for Moodle Mobile
+============================
+
+Addon for Moodle Mobile that complements the Mail plugin for Moodle:
+https://moodle.org/plugins/local_mail
+
+Implemented features:
+- Read messages.
+- Mark messages as read/unread.
+
+Author: Albert Gasset <albertgasset@fsfe.org>

@@ -1,0 +1,180 @@
+.mma-local-mail-current {
+    background-color: #dee;
+}
+
+.mma-local-mail-subject {
+    font-size: 18px;
+}
+
+.mma-local-mail-header h2,
+.mma-local-mail-header p {
+    white-space: normal;
+}
+
+.mma-local-mail-content > p:first-child {
+    margin-top: 0;
+}
+
+p.mma-local-mail-recipients span:not(:last-child)::after {
+    content: ", ";
+}
+
+a.mma-local-mail-unread h2,
+a.mma-local-mail-unread .mma-local-mail-sender,
+a.mma-local-mail-unread .mma-local-mail-recipients {
+    font-weight: bold !important;
+    color: #000 !important;
+}
+
+.mma-local-mail-star {
+    color: #ffd76e;
+    margin-right: 3px;
+}
+
+.mma-local-mail-star::before {
+    font-size: 28px;
+    vertical-align: top;
+    margin-top: -5px;
+}
+
+.mma-local-mail-labels {
+    margin-top: 6px;
+}
+
+.mma-local-mail-label {
+    font-size: 14px;
+    line-height: 16px;
+    padding: 3px 6px;
+    background-color: #eee;
+    color: #000;
+    border-radius: 7px;
+    margin: 2px 4px 2px 0;
+}
+
+.mma-local-mail-label-draft {
+    background-color: transparent !important;
+    color: red !important;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: none;
+}
+
+.mma-local-mail-label-lightgray {
+    background-color: #999 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-lightred {
+    background-color: #e66550 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-lightorange {
+    background-color: #ffbc6b !important;
+    color: #000 !important;
+}
+
+.mma-local-mail-label-lighbrown {
+    background-color: #e9b96e !important;
+    color: #000 !important;
+}
+
+.mma-local-mail-label-lightyellow {
+    background-color: #fdee7c !important;
+    color: #000 !important;
+}
+
+.mma-local-mail-label-lightgreen {
+    background-color: #b3e622 !important;
+    color: #000 !important;
+}
+
+.mma-local-mail-label-lightblue {
+    background-color: #6d9eeb !important;
+    color: #000 !important;
+}
+
+.mma-local-mail-label-lightpurple {
+    background-color: #b694e8 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-gray {
+    background-color: #555 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-red {
+    background-color: #cc0000 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-orange {
+    background-color: #f57900 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-brown {
+    background-color: #c17d11 !important;
+    color: #000 !important;
+}
+
+.mma-local-mail-label-yellow {
+    background-color: #edd400 !important;
+    color: #000 !important;
+}
+
+.mma-local-mail-label-green {
+    background-color: #73d216 !important;
+    color: #000 !important;
+}
+
+.mma-local-mail-label-blue {
+    background-color: #005dd6 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-purple {
+    background-color: #b100cc !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-black {
+    background-color: #05181e !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-darkred {
+    background-color: #8b1818 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-darkorange {
+    background-color: #ad5f1f !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-darkbrown {
+    background-color: #8f5902 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-darkyellow {
+    background-color: #a58c1d !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-darkgreen {
+    background-color: #4d8618 !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-darkblue {
+    background-color: #19488f !important;
+    color: #fff !important;
+}
+
+.mma-local-mail-label-darkpurple {
+    background-color: #6d1782 !important;
+    color: #fff !important;
+}
