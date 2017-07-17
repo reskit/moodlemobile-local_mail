@@ -3,11 +3,11 @@
 }
 
 .mma-local-mail-subject {
-    font-size: 18px;
+    font-size: 20px;
 }
 
-.mma-local-mail-header h2,
-.mma-local-mail-header p {
+.mma-local-mail-sender-info h2,
+.mma-local-mail-sender-info p {
     white-space: normal;
 }
 
@@ -17,6 +17,14 @@
 
 p.mma-local-mail-recipients span:not(:last-child)::after {
     content: ", ";
+}
+
+.mma-local-mail-attachment {
+    padding: 0;
+}
+
+.mma-local-mail-references-heading {
+    text-align: center;
 }
 
 a.mma-local-mail-unread h2,

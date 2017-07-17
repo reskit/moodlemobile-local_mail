@@ -3,7 +3,7 @@
     <ion-content mm-state-class>
         <ion-refresher pulling-text="{{ 'mm.core.pulltorefresh' | translate }}" ng-if="indexLoaded" on-refresh="refreshIndex()">
         </ion-refresher>
-        <mm-loading hide-until="indexLoaded" loading-padding-top="loadingPaddingTop">
+        <mm-loading hide-until="indexLoaded">
             <div class="list mma-local-mail-index">
                 <a ng-repeat="message in messages track by message.id" class="item item-avatar" ng-click="goToMessage(message)"
                    ng-class="{'mma-local-mail-unread': message.unread, 'mma-local-mail-current': message.id == current}">
