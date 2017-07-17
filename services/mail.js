@@ -66,24 +66,38 @@ angular.module('mm.addons.local_mail')
      * @name $mmaLocalMail#_getCacheKeyForMenuIndex
      * @param {String} [type] Type of the index.
      * @param  {Number} [itemId] ID of the course or label.
-     * @param  {Number} [offset] Skip this number of messages.
-     * @param  {Number} [limit] Limit of messages to list.
+     * @param  {Object} [query] Query options.
      * @return {String}
      * @protected
      */
-    self._getCacheKeyForIndex = function(type, itemId, offset, limit) {
+    self._getCacheKeyForIndex = function(type, itemId, query) {
         var key = 'mmaLocalMail:index:';
 
-        if (typeof type !== 'undefined') {
-            key += type + ':';
+        if (type == null) {
+            return key;
         }
+
+        key += type + ':';
 
         if (type == 'course' || type == 'label') {
             key += itemId + ':';
         }
 
-        if (typeof offset !== 'undefined' && typeof limit !== 'undefined') {
-            key += offset + ':' + limit;
+        if (query == null) {
+            return key;
+        }
+
+        // We only use the cache for queries with "beforeid" and "limit".
+        for (var option in query) {
+            if (option != 'beforeid' && option != 'limit') {
+                return null;
+            }
+        }
+
+        key += (query.beforeid || 0);
+
+        if (query.limit > 0) {
+            key += '/' + query.limit;
         }
 
         return key;
@@ -176,31 +190,29 @@ angular.module('mm.addons.local_mail')
     };
 
     /**
-     * Get the list of messages of a box with its metadata.
+     * Search (or get) the list of messages of a box with its metadata.
      *
      * @module mm.addons.local_mail
      * @ngdoc method
-     * @name $mmaLocalMail#getIndex
+     * @name $mmaLocalMail#searchIndex
      * @param {String} [type] Type of the index.
      * @param  {Number} [itemId] ID of the course or label.
-     * @param  {Number} [offset] Skip this number of messages.
-     * @param  {Number} [limit] Limit of messages to list.
+     * @param  {Object} [query] Query options.
      * @return {Promise}
      */
-    self.getIndex = function(type, itemId, offset, limit) {
+    self.searchIndex = function(type, itemId, query) {
         if (type !== 'course' && type !== 'label') {
             itemId = 0;
         }
         var presets = {
-            cacheKey: self._getCacheKeyForIndex(type, itemId, offset, limit)
+            cacheKey: self._getCacheKeyForIndex(type, itemId, query)
         };
         var params = {
             type: type,
             itemid: itemId,
-            offset: offset,
-            limit: limit,
+            query: query,
         };
-        return $mmSite.read('local_mail_get_index', params, presets);
+        return $mmSite.read('local_mail_search_index', params, presets);
     };
 
     /**

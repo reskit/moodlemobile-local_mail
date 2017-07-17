@@ -37,8 +37,11 @@ angular.module('mm.addons.local_mail')
     }
 
     function fetchIndex(refresh) {
-        var offset = refresh ? 0 : $scope.messages.length;
-        return $mmaLocalMail.getIndex($stateParams.type, $stateParams.id, offset, 20).then(function(index) {
+        var query = {limit: 20};
+        if (!refresh && $scope.messages.length > 0) {
+            query.beforeid = $scope.messages[$scope.messages.length - 1].id;
+        }
+        return $mmaLocalMail.searchIndex($stateParams.type, $stateParams.id, query).then(function(index) {
             $scope.moreAvailable = index.messages.length > 0;
             if (refresh) {
                 $scope.messages = index.messages;
