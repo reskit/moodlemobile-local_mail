@@ -44,7 +44,7 @@ angular.module('mm.addons.local_mail')
         /**
          * Check if handler is enabled.
          *
-         * @return {Boolean} True if handler is enabled, false otherwise.
+         * @return {Promise} Promise resolved with true if handler is enabled, false otherwise.
          */
         self.isEnabled = function() {
             return $mmaLocalMail.isPluginEnabled();
